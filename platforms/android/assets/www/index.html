@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MatopeliMobile</title>
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="msapplication-tap-highlight" content="no" />
+    <!-- WARNING: for iOS 7, remove the width=device-width and height=device-height attributes. See https://issues.apache.org/jira/browse/CB-4323 -->
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+    <style>
+        *{
+            box-sizing: border-box;
+        }
+        .mainwrapper{
+            margin: 0 auto;
+            display: flex;
+            flex-flow: column nowrap;
+            justify-content: center;
+            width: 70%;
+        }
+        html{
+            /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b4e391+0,61c419+50,b4e391+100;Green+3D */
+            background: #b4e391; /* Old browsers */
+            background: -moz-linear-gradient(top,  #b4e391 0%, #61c419 50%, #b4e391 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top,  #b4e391 0%,#61c419 50%,#b4e391 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom,  #b4e391 0%,#61c419 50%,#b4e391 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b4e391', endColorstr='#b4e391',GradientType=0 ); /* IE6-9 */
+            height: 90%;
+        }
+        body{
+            height: 100%;
+            overflow: hidden;
+        }
+        .laatikko{
+            background-color: white;
+            background-color: rgba(0,0,0,0.3);
+            margin-bottom: 10px;
+        }
+        #otsikko{
+            text-align: center;
+        }
+        #otsikko{
+            height: 10%;
+            flex: 0 1 auto;
+            font: small-caps bold Helvetica sans-serif;
+        }
+        #content{
+            flex: 1 1 auto;
+            text-align: center;
+        }
+        #content>p{
+            background-color: rgba(0,0,0,0.4);
+            border-radius: 15px;
+            color: white;
+            padding: 5px;
+            margin: 5px auto;
+            width: auto;
+        }
+        canvas{
+            background: white;
+        }
+    </style>
+</head>
+<body>
+<div class="mainwrapper">
+    <div id="otsikko" class="laatikko"><h2>The Matopeli</h3></div>
+    <div id="content" class="laatikko">
+        <p id="juttu"> Pisteet: <span id="pojot">0</span> Nopeus: <span id="nopeus">1000</span> Suunta: <span id="direction">right</span> </p>
+        <p id="juttu">
+            <button id="start" onclick="startGame();">Aloita</button>
+            <button onclick="window.clearInterval(updateInterval); gameon = false; endGame();">Lopeta</button>
+        </p>
+        <canvas id="peli" width="180px" height="180px">
+            Pöö
+        </canvas>
+    </div>
+
+</div>
+
+<script type="text/javascript" src="cordova.js"></script>
+<script src="js/index.js"></script>
+
+</body>
+</html>
