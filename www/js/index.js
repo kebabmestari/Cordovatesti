@@ -1,21 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
 var app = {
     // Application Constructor
     initialize: function() {
@@ -53,8 +35,13 @@ var gameon = false;
 //Pelivariablet
 var pisteet = 0;
 
+var pelialue = document.getElementsByTagName("canvas")[0];
+
 var matopalat = new Array(1);
 var suunta = "right";
+
+var boxW = pelialue.width/9;
+var boxH = pelialue.height/9;
 
 var pelialue = document.getElementById('peli');
 var suuntaboksi = document.getElementById('direction');
@@ -68,13 +55,16 @@ ctx.fillText("MATOPELI", pelialue.width/2, pelialue.height/2 );
 
 var mato_x, mato_y;
 
-var nopeus = 900;
+var nopeus = 700;
 var updateInterval;
+
+var aaniefekti = new Audio("res/aani.wav");
+var gameover = new Audio("res/gameover.mp3");
 
 //Style
 var emptyBg 	= "white";
-var matoBg  	= "rgb(115,165,135)";
-var matoHeadBg  = "rgb(115,165,135)";
+var matoBg  	= "#46B82C";
+var matoHeadBg  = "#2AB82D";
 var ruokaBg 	= "rgb(216,103,87)";
 
 var ruoka_x, ruoka_y;
@@ -174,6 +164,7 @@ function updateGame(){
 
     if( mato_x == ruoka_x && mato_y == ruoka_y ){
         pisteet++;
+        aaniefekti.play();
         updateRuoka();
     }
 
@@ -181,20 +172,20 @@ function updateGame(){
     ctx.fillStyle = "white";
     ctx.fillRect(0,0,pelialue.width, pelialue.height);
 
-    ctx.fillStyle = "black";
+    ctx.fillStyle = matoBg;
     //Draw mato
     var i;
     for( i in matopalat ){
-        ctx.fillRect( matopalat[i].x * 20, matopalat[i].y * 20, 20, 20 );
+        ctx.fillRect( matopalat[i].x * boxW, matopalat[i].y * boxH, boxW, boxH );
     }
 
     //Draw mato head
-    ctx.fillStyle = "cyan";
-    ctx.fillRect( mato_x * 20, mato_y * 20, 20, 20 );
+    ctx.fillStyle = matoHeadBg;
+    ctx.fillRect( mato_x * boxW, mato_y * boxH, boxW, boxH );
 
     //Draw food
     ctx.fillStyle = "red";
-    ctx.fillRect(ruoka_x * 20, ruoka_y * 20, 20, 20 );
+    ctx.fillRect(ruoka_x * boxW, ruoka_y * boxH, boxW, boxH );
 
 }
 
@@ -247,8 +238,10 @@ function endGame(){
     for( i = 0; i < solut.length; i++ ){
         solut[i].style.backgroundColor = 'rgb(214,204,171)';
     }
-    document.getElementById('kontrolliboksi').style.display = 'none';
-    music.pause();
+    ctx.fillStyle = "#000";
+    ctx.textAlign = "center";
+    ctx.fillText("DED", pelialue.width/2, pelialue.height/2);
+    gameover.play();
 }
 
 /**
@@ -267,6 +260,7 @@ function getTouch( ev ){
         suunta = "up";
     if( y > window.innerHeight/2 && Math.abs( window.innerWidth/2 - x ) < 50 )
         suunta = "down";
+    suuntaboksi.innerHTML = suunta;
 }
 
 /**
