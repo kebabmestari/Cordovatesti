@@ -40,10 +40,11 @@ var pelialue = document.getElementsByTagName("canvas")[0];
 var matopalat = new Array(1);
 var suunta = "right";
 
+pelialue.width = window.innerWidth/2;
+pelialue.height = window.innerHeight*0.7;
 var boxW = pelialue.width/9;
 var boxH = pelialue.height/9;
 
-var pelialue = document.getElementById('peli');
 var suuntaboksi = document.getElementById('direction');
 window.addEventListener("keydown", nappain );
 var ctx = pelialue.getContext("2d");
